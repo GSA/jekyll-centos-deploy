@@ -56,12 +56,12 @@ sed -i -e "s/_APPNAME_PLACEHOLDER_/$APPNAME/g" /etc/supervisord.conf
 sed -i -e "s/_SECRET_PLACEHOLDER_/$SECRET/g" /etc/supervisord.conf
 sed -i -e "s/_APPNAME_PLACEHOLDER_/$APPNAME/g" /etc/httpd/conf/httpd.conf
 
-# dont let iptables gets in the way on a test box
-chkconfig --level 2345 iptables off
-service iptables stop
-setsebool -P httpd_can_network_connect 1
-
 # start the engine
 chkconfig --level 2345 httpd on
 service httpd start
 initctl start supervisor
+
+# dont let iptables gets in the way on a test box
+chkconfig --level 2345 iptables off
+service iptables stop
+setsebool -P httpd_can_network_connect 1
